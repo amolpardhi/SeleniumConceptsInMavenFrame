@@ -1,4 +1,4 @@
-package concepts.UiWebelements;
+package uiWebelements;
 
 import java.util.concurrent.TimeUnit;
 
