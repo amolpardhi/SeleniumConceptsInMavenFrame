@@ -2,8 +2,10 @@ package uiWebelements;
 
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 
 //static dropdown -- 
 
@@ -18,10 +20,17 @@ public class StaticDropdownConcept {
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.manage().deleteAllCookies();
-		driver.get("https://www.spicejet.com/");
-		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+		driver.manage().timeouts().pageLoadTimeout(25, TimeUnit.SECONDS);
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.get("https://www.spicejet.com/");
 		
-	}
-	
+		driver.findElement(By.xpath("//*[contains(text(),'1 Adult')]")).click();
+		Select select = new Select(driver.findElement(By.xpath("//select[@id='ctl00_mainContent_ddl_Adult']")));
+		select.selectByIndex(5);
+		select.selectByValue("3");
+		
+		
+		
+		 
+	}	
 }
