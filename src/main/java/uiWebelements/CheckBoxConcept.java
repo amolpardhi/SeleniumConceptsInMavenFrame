@@ -1,16 +1,19 @@
 package uiWebelements;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 
-public class DynamicDropdownConcept {
+public class CheckBoxConcept {
 	
 	static WebDriver driver;
 	
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		
 		System.setProperty("webdriver.chrome.driver", ".\\browsers\\chromedriver.exe");
 		System.setProperty("webdriver.chrome.silentOutput", "true");
@@ -21,16 +24,20 @@ public class DynamicDropdownConcept {
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		driver.get("https://www.spicejet.com/");
 		
-		driver.findElement(By.cssSelector("input[id*='originStation1_CTXT']")).click();
-		driver.findElement(By.xpath("//a[contains(text(),' Bhopal (BHO)')]")).click();
-		Thread.sleep(2000);
+		Assert.assertFalse(driver.findElement(By.cssSelector("input[id*='friendsandfamily']")).isSelected());
+		driver.findElement(By.cssSelector("input[id*='friendsandfamily']")).click();
+		Assert.assertTrue(driver.findElement(By.cssSelector("input[id*='friendsandfamily']")).isSelected());
 		
-		driver.findElement(By.xpath("//div[@id='glsctl00_mainContent_ddl_destinationStation1_CTNR'] //a[contains(text(),' Pune (PNQ)')]")).click();
 		
-		Thread.sleep(2000);
+		List<WebElement> getSize = driver.findElements(By.xpath("//input[@type='checkbox']"));
+		System.out.println(getSize.size());
+		
+		
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		driver.quit();
 	}
 }
-
-//Parent Child Relationship xpath -- //div[@id='glsctl00_mainContent_ddl_destinationStation1_CTNR'] //a[contains(text(),' Pune (PNQ)')]
-
